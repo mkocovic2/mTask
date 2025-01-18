@@ -6,4 +6,4 @@ public:
 private:
   std::string name;
   std::string dir;
-}
+};
