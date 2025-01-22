@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "Controller.h"
+#include "models/controller.h"
 
 int main (int argc, char *argv[]) {
   if(argc > 6){
