@@ -1,23 +1,18 @@
-#include <string>
-#include <fstream>
-#include <iostream>
-#include "../json.hpp"
+#include "workspace.h"
 
-using json = nlohmann::json;
-
-const std::string data_path = "data.json";
-const std::string current_board = "current_board";
-
-class Board{
+using CommandHandle = std::function<void(std::string)>; 
+class Board : public IWorkspace{
 public:
-  Board(std::string name, std::string dir);
-  void MainCommand(std::string command, std::string type);
-  void CreateSelection(std::string type);
-  void CreateBoard();
-  void SelectBoard(std::string board_name);
-  void DeselectBoard(std::string boardName);
-  
+  Board(std::string name);  
+  void HandleCommand(std::string command, std::string name) override; 
 private:
+  
   std::string name;
   std::string dir;
+  std::string description;
+  std::unordered_map<std::string, CommandHandle> commandHandler; 
+  
+  void Create() override;
+  void SelectBoard(std::string board_name);
+  void DeselectBoard(std::string board_name);
 };

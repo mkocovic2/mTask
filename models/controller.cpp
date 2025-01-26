@@ -8,8 +8,6 @@ void Controller::MainCommand(int argc, char *argv[]){
     std::cerr << "Invalid amount of arguments";
   }
 
-
-
   std::string command = argv[1];
   std::string type = argv[2];
   std::string chosen_name = argv[3];

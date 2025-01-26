@@ -1,7 +1,25 @@
 #include "board.h"
 
+Board::Board(std::string name){
+  this->name; 
+  commandHandler["create"] = [this](std::string name){
+    return this->Create();
+  };
+  commandHandler["select"] = [this](std::string name){
+    return this->SelectBoard(name);
+  };
+}
+
+void Board::HandleCommand(std::string command, std::string name){
+  if(commandHandler.find(command) != commandHandler.end()){
+    commandHandler[command](name);
+  } else {
+    throw std::invalid_argument("Command not found...");
+  }
+}
+
 //Saves location of boards on the 'data.json' file
-void Board::CreateBoard(){
+void Board::Create(){
   std::ifstream b_save(data_path);
   if(!b_save.is_open()){
     throw std::invalid_argument("File not found");
