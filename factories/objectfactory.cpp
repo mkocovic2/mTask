@@ -15,6 +15,6 @@ void ObjectFactory::handleAction(std::string command, std::string type, std::str
     }
 }
 
-IWorkspace* ObjectFactory::defineBoard(std::string name=""){
+IWorkspace* ObjectFactory::defineBoard(std::string name){
     return new Board(name);
 }

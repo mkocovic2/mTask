@@ -13,5 +13,5 @@ void Controller::MainCommand(int argc, char *argv[]){
   std::string chosen_name = argv[3];
   
   ObjectFactory commandHandler;
-  commandHandler.handleAction(chosen_name, type, chosen_name);
+  commandHandler.handleAction(command, type, chosen_name);
 }
