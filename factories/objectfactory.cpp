@@ -4,7 +4,7 @@ ObjectFactory::ObjectFactory(){
    commandParse["board"] = [this](std::string command, std::string name) -> IWorkspace* {
         return this->defineBoard(name);
     };
-    commandParse["board"] = [this](std::string command, std::string name) -> IWorkspace* {
+    commandParse["task"] = [this](std::string command, std::string name) -> IWorkspace* {
         return this->defineTask(name);
     };
 }
