@@ -4,6 +4,7 @@
 #include <functional>
 
 #include "../models/board.h"
+#include "../models/task.h"
 #include "../models/workspace.h"
 
 using ObjectType = std::function<IWorkspace*(std::string, std::string)>;
@@ -16,4 +17,5 @@ public:
 private: 
     std::unordered_map<std::string, ObjectType> commandParse;
     IWorkspace* defineBoard(std::string name="");
+    IWorkspace* defineTask(std::string name="");
 };

@@ -1,21 +1,13 @@
 #include "task.h"
 
-task::task(){
-  taskName = "";
-  taskDescription = "";
-  taskDeadline = "";
-}
-
-task::task(std::string taskName, std::string taskDescription, std::string taskDeadline){
+Task::Task(std::string taskName){
   this->taskName = taskName;
-  this->taskDescription = taskDescription;
-  this->taskDeadline = taskDeadline;
 }
 
-void task::printEntireTask(){
+void Task::printEntireTask(){
   std::cout << this->taskName;
 }
 
-void task::setName(std::string taskName){
+void Task::setName(std::string taskName){
   this->taskName = taskName;
 }

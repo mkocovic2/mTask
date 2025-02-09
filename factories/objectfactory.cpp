@@ -4,6 +4,9 @@ ObjectFactory::ObjectFactory(){
    commandParse["board"] = [this](std::string command, std::string name) -> IWorkspace* {
         return this->defineBoard(name);
     };
+    commandParse["board"] = [this](std::string command, std::string name) -> IWorkspace* {
+        return this->defineTask(name);
+    };
 }
 
 void ObjectFactory::handleAction(std::string command, std::string type, std::string chosen_name){
@@ -17,4 +20,8 @@ void ObjectFactory::handleAction(std::string command, std::string type, std::str
 
 IWorkspace* ObjectFactory::defineBoard(std::string name){
     return new Board(name);
+}
+
+IWorkspace* ObjectFactory::defineTask(std::string name){
+    return new Task(name);
 }
