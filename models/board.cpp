@@ -1,7 +1,7 @@
 #include "board.h"
 
 Board::Board(std::string name){
-  this->name; 
+  this->name = name; 
   commandHandler["create"] = [this](std::string name){
     return this->Create();
   };

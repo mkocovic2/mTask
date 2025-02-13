@@ -7,7 +7,6 @@ public:
   void HandleCommand(std::string command, std::string name) override; 
 
 private:
-  
   std::string name;
   std::string dir;
   std::string description;
