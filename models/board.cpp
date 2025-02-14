@@ -27,9 +27,9 @@ void Board::Create(std::string boardName){
   
   data[boardName] = new_data;
   
-  std::ofstream b_write(boardName + ".json");
+  std::ofstream b_write("Boards/" + boardName + ".json");
   if(!b_write.is_open()){
-    throw std::invalid_argument("File not found");
+    throw std::invalid_argument("File cannot be created");
   }
   b_write << data;
   
