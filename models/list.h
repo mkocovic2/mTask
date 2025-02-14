@@ -12,7 +12,7 @@ private:
     std::string description;
     std::unordered_map<std::string, CommandHandle> commandHandler; 
 
-    void Create() override;
+    void Create(std::string listName) override;
     void Destroy() override;
     void Update() override;
 };

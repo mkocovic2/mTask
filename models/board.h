@@ -8,11 +8,10 @@ public:
 
 private:
   std::string name;
-  std::string dir;
   std::string description;
   std::unordered_map<std::string, CommandHandle> commandHandler; 
   
-  void Create() override;
+  void Create(std::string boardName) override;
   void Destroy() override;
   void Update() override;
   void SelectBoard(std::string board_name);

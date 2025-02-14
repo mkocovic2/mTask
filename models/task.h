@@ -13,7 +13,7 @@ private:
   std::string taskDeadline;
   std::unordered_map<std::string, CommandHandle> commandHandler; 
 
-  void Create() override;
+  void Create(std::string taskName) override;
   void Destroy() override;
   void Update() override;
 };

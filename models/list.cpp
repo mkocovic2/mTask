@@ -3,7 +3,7 @@
 List::List(std::string name){
     this->name = name;
     commandHandler["create"] = [this](std::string name){
-        return this->Create();
+        return this->Create(name);
     };
     commandHandler["update"] = [this](std::string name){
         return this->Update();
@@ -18,7 +18,7 @@ void List::HandleCommand(std::string command, std::string name){
     }
 }
 
-void List::Create(){
+void List::Create(std::string listName){
 
 }
 

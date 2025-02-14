@@ -3,7 +3,7 @@
 Board::Board(std::string name){
   this->name = name; 
   commandHandler["create"] = [this](std::string name){
-    return this->Create();
+    return this->Create(name);
   };
   commandHandler["select"] = [this](std::string name){
     return this->SelectBoard(name);
@@ -19,30 +19,15 @@ void Board::HandleCommand(std::string command, std::string name){
 }
 
 //Saves location of boards on the 'data.json' file
-void Board::Create(){
-  std::ifstream b_save("data.json");
-  if(!b_save.is_open()){
-    throw std::invalid_argument("File not found");
-  }
-
-  std::string board_name;
-  std::string board_dir;
+void Board::Create(std::string boardName){
   json data; 
   json new_data;
 
-  b_save >> data;
-  b_save.close();
-
-  std::cout << "Name: ";
-  std::cin >> board_name;
-  std::cout << "Directory: ";
-  std::cin >> board_dir;
-
-  new_data = {{"name", board_name}, {"directory", board_dir} };
+  new_data = {{"name", boardName}};
   
-  data[board_name] = new_data;
+  data[boardName] = new_data;
   
-  std::ofstream b_write("data.json");
+  std::ofstream b_write(boardName + ".json");
   if(!b_write.is_open()){
     throw std::invalid_argument("File not found");
   }
@@ -78,7 +63,7 @@ void Board::SelectBoard(std::string board_name){
 }
 
 void Board::DeselectBoard(std::string boardName){
-  std::ifstream b_save("data.json");
+  std::ifstream b_save(boardName + ".json");
   if(!b_save.is_open()){
     throw std::invalid_argument("File not found");
   }

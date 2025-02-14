@@ -13,7 +13,7 @@ using json = nlohmann::json;
 class IWorkspace {
 public:
     virtual void HandleCommand(std::string command, std::string name) = 0;
-    virtual void Create() = 0;
+    virtual void Create(std::string name) = 0;
     virtual void Destroy() = 0;
     virtual void Update() = 0;
     virtual ~IWorkspace() = default;

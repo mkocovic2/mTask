@@ -3,7 +3,7 @@
 Task::Task(std::string taskName){
   this->taskName = taskName;
   commandHandler["create"] = [this](std::string name){
-    return this->Create();
+    return this->Create(name);
   };
   commandHandler["delete"] = [this](std::string name){
     return this->Destroy();
@@ -21,7 +21,7 @@ void Task::HandleCommand(std::string command, std::string name){
   }
 }
 
-void Task::Create(){
+void Task::Create(std::string taskName){
 
 }
 
