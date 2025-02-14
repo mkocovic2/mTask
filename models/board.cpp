@@ -18,32 +18,43 @@ void Board::HandleCommand(std::string command, std::string name){
   }
 }
 
-//Saves location of boards on the 'data.json' file
 void Board::Create(std::string boardName){
-  json data; 
+  json boardObject; // We need to create a JSON object save the users board.
   
-  data[boardName] = {{"name", boardName}};
+  boardObject[boardName] = {{"name", boardName}}; // Users board is stored here, with the name. 
   
-  std::ofstream b_write("Boards/" + boardName + ".json");
+  //Create a JSON file for the board, it saves in the Boards directory
+  std::ofstream b_write("Boards/" + boardName + ".json"); 
   if(!b_write.is_open()){
     throw std::invalid_argument("File cannot be created");
   }
-  b_write << data;
+  b_write << boardObject;
   b_write.close();
 
-  data.clear();
-  data["current_board"] = {{"name", boardName}};
+  json globalData;
+  
+  // Board name must be added to the list of boards.
+  std::ifstream d_read("data.json");
+  if(!d_read.is_open()){
+    throw std::invalid_argument("Board couldn't be saved");
+  }
+
+  d_read >> globalData;
+  globalData[boardName] = {{"name", boardName}};
+
+  d_read.close();
 
   std::ofstream d_write("data.json");
   if(!d_write.is_open()){
     throw std::invalid_argument("Board couldn't be saved");
   }
 
-  d_write << data;
+  d_write << globalData;
+  d_write.close();
 }
 
 void Board::SelectBoard(std::string board_name){
-  std::ifstream b_save("Boards/" + board_name + ".json");
+  std::ifstream b_save("data.json");
   if(!b_save.is_open()){
     throw std::invalid_argument("File not found");
   }
