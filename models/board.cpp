@@ -1,12 +1,18 @@
 #include "board.h"
 
 Board::Board(std::string name){
-  this->name = name; 
+  this->entityName = name; 
   commandHandler["create"] = [this](std::string name){
     return this->Create(name);
   };
   commandHandler["select"] = [this](std::string name){
     return this->SelectBoard(name);
+  };
+  commandHandler["deselect"] = [this](std::string name){
+    return this->DeselectBoard(name);
+  };
+  commandHandler["delete"] = [this](std::string name){
+    return this->Destroy();
   };
 }
 
@@ -102,7 +108,26 @@ void Board::DeselectBoard(std::string boardName){
 }
 
 void Board::Destroy(){
+  std::string board_file = "Boards/" + entityName + ".json";
+  if(CheckFileExistence(board_file) == false){
+    return; 
+  }
+  const char* boardObject = board_file.c_str();
+  if(std::remove(boardObject) == 0){
+    std::cout << "done";
+  } else {
+    std::cout << "failed";
+  }
+}
 
+bool Board::CheckFileExistence(std::string file_location){
+  std::ifstream b_read(file_location);
+  if(!b_read.is_open()){
+    b_read.close();
+    return true;
+  } else {
+    return false; 
+  }
 }
 
 void Board::Update(){

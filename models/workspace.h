@@ -9,6 +9,7 @@
 #include "../json.hpp"
 
 using json = nlohmann::json;
+using g_commandHandle = std::function<void(std::string)>; 
 
 class IWorkspace {
 public:
@@ -17,9 +18,11 @@ public:
     virtual void Destroy() = 0;
     virtual void Update() = 0;
     virtual ~IWorkspace() = default;
+
 protected:
-    std::string name;
-    std::string dir;
+    std::string entityName;
+    std::string entityDescription; 
+    std::unordered_map<std::string, g_commandHandle> commandHandler; 
 };
 
 #endif
