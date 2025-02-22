@@ -12,5 +12,6 @@ private:
   void SelectBoard(std::string board_name);
   void DeselectBoard(std::string board_name);
 
-  bool CheckFileExistence(std::string file_location);
+  bool CheckFileExistence();
+  bool CheckJsonBoard();
 };

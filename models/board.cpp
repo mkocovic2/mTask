@@ -108,8 +108,7 @@ void Board::DeselectBoard(std::string boardName){
 }
 
 void Board::Destroy(){
-  std::string board_file = "Boards/" + entityName + ".json";
-  if(CheckFileExistence(board_file) == false){
+  if(CheckFileExistence(board_file) && CheckJsonBoard()){
     return; 
   }
   const char* boardObject = board_file.c_str();
@@ -120,7 +119,28 @@ void Board::Destroy(){
   }
 }
 
-bool Board::CheckFileExistence(std::string file_location){
+//Checks if the board is located in the universal Board json file. 
+bool Board::CheckJsonBoard(){
+  std::ifstream b_save("data.json");
+  if(!b_save.is_open()){
+    throw std::invalid_argument("File not found");
+  }
+  
+  json data; 
+  b_save >> data;
+  b_save.close();
+
+  if(data.contains(this->entityName) && data[this->entityName].is_object()){
+    return true; 
+  } else {
+    std::cerr << "Board does not exist";
+    return false; 
+  }
+
+}
+
+bool Board::CheckFileExistence(){
+  std::string board_file = "Boards/" + entityName + ".json";
   std::ifstream b_read(file_location);
   if(!b_read.is_open()){
     b_read.close();
