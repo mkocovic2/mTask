@@ -12,6 +12,9 @@ private:
   void SelectBoard(std::string board_name);
   void DeselectBoard(std::string board_name);
 
+  bool DeleteFile();
+  bool DeleteJsonRecord();
   bool CheckFileExistence();
   bool CheckJsonBoard();
+  json WriteBoard();
 };

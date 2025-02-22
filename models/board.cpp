@@ -86,7 +86,7 @@ void Board::SelectBoard(std::string board_name){
 }
 
 void Board::DeselectBoard(std::string boardName){
-  std::ifstream b_save(boardName + ".json");
+  std::ifstream b_save("data.json");
   if(!b_save.is_open()){
     throw std::invalid_argument("File not found");
   }
@@ -108,14 +108,11 @@ void Board::DeselectBoard(std::string boardName){
 }
 
 void Board::Destroy(){
-  if(CheckFileExistence(board_file) && CheckJsonBoard()){
-    return; 
-  }
-  const char* boardObject = board_file.c_str();
-  if(std::remove(boardObject) == 0){
-    std::cout << "done";
+  if(CheckFileExistence() && CheckJsonBoard()){
+    DeleteFile();
+    DeleteJsonRecord();
   } else {
-    std::cout << "failed";
+    std::cerr << "Board deletion has failed";
   }
 }
 
@@ -140,14 +137,40 @@ bool Board::CheckJsonBoard(){
 }
 
 bool Board::CheckFileExistence(){
-  std::string board_file = "Boards/" + entityName + ".json";
+  std::string file_location = "Boards/" + entityName + ".json";
   std::ifstream b_read(file_location);
   if(!b_read.is_open()){
     b_read.close();
     return true;
   } else {
+    std::cerr << "Board does not exist";
     return false; 
   }
+}
+
+bool Board::DeleteFile(){
+  std::string board_file = "Boards/" + entityName + ".json"; 
+  const char* boardObject = board_file.c_str();
+  if(std::remove(boardObject) == 0){
+    return true;
+  } else {
+    std::cout << "failed";
+    return false; 
+  }
+}
+
+bool Board::DeleteJsonRecord(){
+
+}
+
+json Board::WriteBoard(){
+  json boardJson;
+  std::ofstream b_write("Boards/" + entityName + ".json"); 
+  if(!b_write.is_open()){
+    throw std::invalid_argument("File cannot be created");
+  }
+  b_write << boardJson;
+  b_write.close();
 }
 
 void Board::Update(){
