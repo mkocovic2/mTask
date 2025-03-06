@@ -12,10 +12,10 @@ private:
   void SelectBoard(std::string board_name);
   void DeselectBoard(std::string board_name);
 
-  bool DeleteFile();
+  bool DeleteFile(std::string targetFile);
   bool DeleteJsonRecord(std::string targetFile);
-  bool CheckFileExistence();
-  bool CheckJsonBoard();
-  void WriteBoard(json jsonInformation);
+  bool CheckFileExistence(std::string target_file);
+  bool CheckJsonBoard(std::string target_file);
+  void WriteBoard(std::string targetFile, json jsonInformation);
   json ReadFromJson(std::string targetFile);
 };

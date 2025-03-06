@@ -107,16 +107,17 @@ void Board::DeselectBoard(std::string boardName){
 }
 
 void Board::Destroy(){
-  if(CheckFileExistence() && CheckJsonBoard()){
-    DeleteFile();
+  std::string board_file = BoardConfig::BOARDS_DIRECTORY + this->entityName + ".json";
+  if(CheckFileExistence(board_file) && CheckJsonBoard(BoardConfig::GLOBAL_DATA_FILE)){
+    DeleteFile(board_file);
     DeleteJsonRecord(BoardConfig::GLOBAL_DATA_FILE);
   } else {
     std::cerr << BoardConfig::ERR_BOARD_DELETION;
   }
 }
 
-bool Board::CheckJsonBoard(){
-  std::ifstream b_save(BoardConfig::GLOBAL_DATA_FILE);
+bool Board::CheckJsonBoard(std::string target_file){
+  std::ifstream b_save(target_file);
   if(!b_save.is_open()){
     throw std::invalid_argument(BoardConfig::ERR_FILE_NOT_FOUND);
   }
@@ -133,46 +134,46 @@ bool Board::CheckJsonBoard(){
   }
 }
 
-bool Board::CheckFileExistence(){
-  std::string file_location = BoardConfig::BOARDS_DIRECTORY + entityName + ".json";
-  std::cout << file_location << std::endl;
-  std::ifstream b_read(file_location);
-  if(!b_read.is_open()){
+bool Board::CheckFileExistence(std::string target_file){
+  std::ifstream b_read(target_file);
+
+  if (b_read.is_open()) { 
     b_read.close();
     return true;
-  } else {
-    std::cerr << BoardConfig::ERR_BOARD_NOT_EXIST << "\n";
+  } else {  
+    std::cerr << BoardConfig::ERR_FILE_NOT_FOUND << "\n";
     return false; 
   }
 }
 
-bool Board::DeleteFile(){
-  std::string board_file = BoardConfig::BOARDS_DIRECTORY + entityName + ".json"; 
-  const char* boardObject = board_file.c_str();
+bool Board::DeleteFile(std::string targetFile){
+  const char* boardObject = targetFile.c_str();
   if(std::remove(boardObject) == 0){
     return true;
   } else {
-    std::cout << "failed";
+    std::cout << "File could not be found for deletion";
     return false; 
   }
 }
 
 bool Board::DeleteJsonRecord(std::string targetFile){
-  std::ifstream b_save(targetFile);
-  if(!b_save.is_open()){
-    return false;
+  json global_file = ReadFromJson(targetFile);
+  global_file.erase(this->entityName);
+
+  if(global_file[BoardConfig::KEY_CURRENT_BOARD][BoardConfig::KEY_NAME] == this->entityName){
+    global_file[BoardConfig::KEY_CURRENT_BOARD][BoardConfig::KEY_NAME] = "";
   }
+  WriteBoard(targetFile, global_file);
 
   return true;  
 }
 
-void Board::WriteBoard(json jsonInformation){
-  json boardJson;
-  std::ofstream b_write(BoardConfig::BOARDS_DIRECTORY + entityName + ".json"); 
+void Board::WriteBoard(std::string targetFile, json jsonInformation){
+  std::ofstream b_write(targetFile); 
   if(!b_write.is_open()){
     throw std::invalid_argument(BoardConfig::ERR_FILE_CREATE);
   }
-  b_write << boardJson;
+  b_write << jsonInformation;
   b_write.close();
 }
 
@@ -186,8 +187,9 @@ json Board::ReadFromJson(std::string targetFile){
   json retrieveBoard;
   b_save >> retrieveBoard;
 
+  b_save.close();
+
   return retrieveBoard; 
-   
 }
 
 void Board::Update(){

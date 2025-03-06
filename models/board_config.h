@@ -29,7 +29,7 @@ public:
     static const std::string ERR_BOARD_DELETION;
 };
 
-inline const std::string BoardConfig::BOARDS_DIRECTORY = "Boards/";
+inline const std::string BoardConfig::BOARDS_DIRECTORY = "boards/";
 inline const std::string BoardConfig::GLOBAL_DATA_FILE = "data.json";
 
 // Command Strings
