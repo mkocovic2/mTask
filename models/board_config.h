@@ -14,6 +14,7 @@ public:
     static const std::string CMD_SELECT;
     static const std::string CMD_DESELECT;
     static const std::string CMD_DELETE;
+    static const std::string CMD_UPDATE;
 
     // JSON Keys
     static const std::string KEY_NAME;
@@ -37,6 +38,7 @@ inline const std::string BoardConfig::CMD_CREATE = "create";
 inline const std::string BoardConfig::CMD_SELECT = "select";
 inline const std::string BoardConfig::CMD_DESELECT = "deselect";
 inline const std::string BoardConfig::CMD_DELETE = "delete";
+inline const std::string BoardConfig::CMD_UPDATE = "update";
 
 // JSON Keys
 inline const std::string BoardConfig::KEY_NAME = "name";

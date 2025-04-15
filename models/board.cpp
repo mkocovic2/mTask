@@ -15,6 +15,9 @@ Board::Board(std::string name){
   commandHandler[BoardConfig::CMD_DELETE] = [this](std::string name){
     return this->Destroy();
   };
+  commandHandler[BoardConfig::CMD_UPDATE] = [this](std::string name){
+    return this->Update();
+  }
 }
 
 void Board::HandleCommand(std::string command, std::string name){
@@ -193,5 +196,5 @@ json Board::ReadFromJson(std::string targetFile){
 }
 
 void Board::Update(){
-  
+   
 }
