@@ -3,14 +3,6 @@
 
 **mTask** is a lightweight, Command-Line Interface (CLI) based project manager that helps you manage your tasks and projects effortlessly. Built with simplicity and scalability in mind, mTask is designed using Object-Oriented Programming (OOP) principles and leverages the Factory design pattern. The tool is JSON-compatible and built in C++ using the powerful **JSON.hpp** library to handle data storage.
 
----
-
-![CI Badge](https://img.shields.io/github/workflow/status/yourusername/mTask/CI)
-![License Badge](https://img.shields.io/github/license/yourusername/mTask)
-![Release Badge](https://img.shields.io/github/release/yourusername/mTask)
-
----
-
 ## Features 🚀
 
 - **Lightweight & Fast:** Designed to run efficiently with minimal resources.
@@ -130,20 +122,6 @@ The Factory Pattern is used to dynamically create task objects, allowing easy ex
 ## Contributing 🤝
 
 Contributions are welcome! If you'd like to improve mTask, feel free to open an issue or submit a pull request. Please make sure to follow the code style and write tests for new features.
-
----
-
-## License 📜
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## Contact 📬
-
-If you have any questions or suggestions, feel free to reach out via:
-- Email: your-email@example.com
-- GitHub: [@yourusername](https://github.com/yourusername)
 
 ---
 
