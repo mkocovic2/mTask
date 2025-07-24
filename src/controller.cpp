@@ -1,4 +1,4 @@
-#include "controller.h"
+#include "../include/mtask/controller.h"
 
 //We can direct the users command, and get more specific depending on what the command was.
 void Controller::MainCommand(int argc, char *argv[]){
