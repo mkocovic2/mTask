@@ -1,4 +1,4 @@
-#include "objectfactory.h"
+#include "../include/mtask/objectfactory.h"
 
 ObjectFactory::ObjectFactory(){
    commandParse["board"] = [this](std::string command, std::string name) -> IWorkspace* {

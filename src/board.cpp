@@ -1,4 +1,4 @@
-#include "board.h"
+#include "../include/mtask/board.h"
 #include "board_config.h"
 
 Board::Board(std::string name){

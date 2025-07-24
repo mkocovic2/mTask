@@ -1,25 +1,25 @@
 CXX = g++
-CXXFLAGS = -std=c++17 -Wall -Wextra -Werror
+CXXFLAGS = -std=c++17 -Wall -Wextra -Werror -Iinclude
 
-SRC = main.cpp \
-      models/board.cpp \
-      models/controller.cpp \
-      models/task.cpp \
-      factories/objectfactory.cpp
+SRC_DIR = src
+OBJ_DIR = obj
+BIN = mtask
 
-OBJ = $(SRC:.cpp=.o)
+SRC = $(wildcard $(SRC_DIR)/*.cpp)
+OBJ = $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRC))
 
-TARGET = mtask
+all: $(BIN)
 
-all: $(TARGET)
-
-$(TARGET): $(OBJ)
+$(BIN): $(OBJ)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
-%.o: %.cpp
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
+
 clean:
-	rm -f $(OBJ) $(TARGET)
+	rm -rf $(OBJ_DIR) $(BIN)
 
 .PHONY: all clean

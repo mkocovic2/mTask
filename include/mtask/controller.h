@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../factories/objectfactory.h"
+#include "objectfactory.h"
 
 class Controller{
 public:

@@ -3,9 +3,9 @@
 #include <unordered_map>
 #include <functional>
 
-#include "../models/board.h"
-#include "../models/task.h"
-#include "../models/workspace.h"
+#include "board.h"
+#include "task.h"
+#include "workspace.h"
 
 using ObjectType = std::function<IWorkspace*(std::string, std::string)>;
 

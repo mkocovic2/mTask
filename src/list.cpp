@@ -1,4 +1,4 @@
-#include "list.h"
+#include "../include/mtask/list.h"
 
 List::List(std::string name){
     this->name = name;

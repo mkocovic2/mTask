@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "models/controller.h"
+#include "../include/mtask/controller.h"
 
 int main (int argc, char *argv[]) {
   if(argc > 6){
