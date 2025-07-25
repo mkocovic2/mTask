@@ -46,37 +46,7 @@ Before you install, make sure you have the following installed:
 
 ## Usage 🖥️
 
-Once installed, you can use **mTask** to create, manage, and track your tasks. Here are some basic commands to get you started:
-
-- **Create a new task:**
-   ```bash
-   ./mTask create "Finish project report" --due "2025-02-20"
-   ```
-
-- **List all tasks:**
-   ```bash
-   ./mTask list
-   ```
-
-- **Complete a task:**
-   ```bash
-   ./mTask complete "Finish project report"
-   ```
-
-- **Delete a task:**
-   ```bash
-   ./mTask delete "Finish project report"
-   ```
-
-- **Show task details:**
-   ```bash
-   ./mTask show "Finish project report"
-   ```
-
-For more commands and detailed usage, run:
-```bash
-./mTask --help
-```
+[Still Developing]
 
 ---
 
