@@ -1,5 +1,5 @@
 #include "../include/mtask/board.h"
-#include "board_config.h"
+#include "../include/mtask/board_config.h"
 
 Board::Board(std::string name){
   this->entityName = name; 
@@ -17,7 +17,7 @@ Board::Board(std::string name){
   };
   commandHandler[BoardConfig::CMD_UPDATE] = [this](std::string name){
     return this->Update();
-  }
+  };
 }
 
 void Board::HandleCommand(std::string command, std::string name){

@@ -6,7 +6,7 @@
 #include <functional>
 #include <fstream>
 #include <iostream>
-#include "..external/json/json.hpp"
+#include "../../external/json/json.hpp"
 
 using json = nlohmann::json;
 using g_commandHandle = std::function<void(std::string)>; 

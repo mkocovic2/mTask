@@ -1,0 +1,30 @@
+# Build artifacts
+obj/
+*.o
+*.out
+*.a
+*.so
+*.exe
+
+# Temporary files
+*~
+*.swp
+*.tmp
+*.bak
+
+# Logs and debug symbols
+*.log
+*.dSYM/
+
+# IDE/editor metadata
+.vscode/
+.idea/
+.clangd/
+compile_flags.txt
+
+# Project-specific
+external/
+include/
+src/
+mtask/
+compile_commands.json
