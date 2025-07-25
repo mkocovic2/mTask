@@ -5,8 +5,10 @@ obj/
 *.a
 *.so
 *.exe
+mtask
+compile_commands.json
 
-# Temporary files
+# Temporary and backup files
 *~
 *.swp
 *.tmp
@@ -16,7 +18,7 @@ obj/
 *.log
 *.dSYM/
 
-# IDE/editor metadata
+# IDE/editor files
 .vscode/
 .idea/
 .clangd/
@@ -26,5 +28,3 @@ compile_flags.txt
 external/
 include/
 src/
-mtask/
-compile_commands.json
