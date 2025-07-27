@@ -1,6 +1,6 @@
 #include "workspace.h"
 
-using CommandHandle = std::function<void(std::string)>; 
+using CommandHandle = std::function<void(std::string)>;
 class Task : public IWorkspace {
 public:
   Task(std::string taskName);
@@ -11,7 +11,7 @@ private:
   std::string taskDescription;
   bool taskStatus;
   std::string taskDeadline;
-  std::unordered_map<std::string, CommandHandle> commandHandler; 
+  std::unordered_map<std::string, CommandHandle> commandHandler;
 
   void Create(std::string taskName) override;
   void Destroy() override;

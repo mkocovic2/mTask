@@ -1,7 +1,7 @@
-#include <iostream>
 #include "objectfactory.h"
+#include <iostream>
 
-class Controller{
+class Controller {
 public:
   void MainCommand(int argc, char *argv[]);
 };
