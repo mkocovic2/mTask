@@ -1,8 +1,12 @@
 #include "../include/mtask/board.h"
 #include "../include/mtask/board_config.h"
+#include <filesystem>
+#include <fstream>
+#include <iostream>
 
 Board::Board(std::string name) {
   this->entityName = name;
+  CheckDirectorySetup();
   commandHandler[BoardConfig::CMD_CREATE] = [this](std::string name) {
     return this->Create(name);
   };
@@ -61,18 +65,18 @@ void Board::Create(std::string boardName) {
   d_write.close();
 }
 
-void Board::SelectBoard(std::string board_name) {
-  std::ifstream b_save(BoardConfig::GLOBAL_DATA_FILE);
-  if (!b_save.is_open()) {
+void Board::SelectBoard(std::string boardName) {
+  std::ifstream b_read(BoardConfig::GLOBAL_DATA_FILE);
+  if (!b_read.is_open()) {
     throw std::invalid_argument(BoardConfig::ERR_FILE_NOT_FOUND);
   }
 
   json data;
-  b_save >> data;
-  b_save.close();
+  b_read >> data;
+  b_read.close();
 
-  if (data.contains(board_name) && data[board_name].is_object()) {
-    data[BoardConfig::KEY_CURRENT_BOARD][BoardConfig::KEY_NAME] = board_name;
+  if (data.contains(boardName) && data[boardName].is_object()) {
+    data[BoardConfig::KEY_CURRENT_BOARD][BoardConfig::KEY_NAME] = boardName;
     std::cout << data[BoardConfig::KEY_CURRENT_BOARD][BoardConfig::KEY_NAME];
   } else {
     std::cerr << BoardConfig::ERR_BOARD_NOT_EXIST;
@@ -88,13 +92,13 @@ void Board::SelectBoard(std::string board_name) {
 }
 
 void Board::DeselectBoard(std::string boardName) {
-  std::ifstream b_save(BoardConfig::GLOBAL_DATA_FILE);
-  if (!b_save.is_open()) {
+  std::ifstream b_read(BoardConfig::GLOBAL_DATA_FILE);
+  if (!b_read.is_open()) {
     throw std::invalid_argument(BoardConfig::ERR_FILE_NOT_FOUND);
   }
 
   json data;
-  b_save >> data;
+  b_read >> data;
 
   if (data.contains(BoardConfig::KEY_CURRENT_BOARD) &&
       data[BoardConfig::KEY_CURRENT_BOARD].is_object()) {
@@ -110,6 +114,8 @@ void Board::DeselectBoard(std::string boardName) {
   b_write.close();
 }
 
+void Board::Update() {}
+
 void Board::Destroy() {
   std::string board_file =
       BoardConfig::BOARDS_DIRECTORY + this->entityName + ".json";
@@ -122,15 +128,18 @@ void Board::Destroy() {
   }
 }
 
-bool Board::CheckJsonBoard(std::string target_file) {
-  std::ifstream b_save(target_file);
-  if (!b_save.is_open()) {
+// Helper Functions
+
+// Checks if file/board is documented in the JSON file.
+bool Board::CheckJsonBoard(std::string targetFile) {
+  std::ifstream b_read(targetFile);
+  if (!b_read.is_open()) {
     throw std::invalid_argument(BoardConfig::ERR_FILE_NOT_FOUND);
   }
 
   json data;
-  b_save >> data;
-  b_save.close();
+  b_read >> data;
+  b_read.close();
 
   if (data.contains(this->entityName) && data[this->entityName].is_object()) {
     return true;
@@ -140,8 +149,25 @@ bool Board::CheckJsonBoard(std::string target_file) {
   }
 }
 
-bool Board::CheckFileExistence(std::string target_file) {
-  std::ifstream b_read(target_file);
+void Board::CheckDirectorySetup() {
+  if (!std::filesystem::exists(BoardConfig::BOARDS_DIRECTORY)) {
+    std::cout
+        << "'boards' directory not found, directory has been created...\n";
+    std::filesystem::create_directory("boards");
+  }
+
+  if (!CheckFileExistence(BoardConfig::BOARDS_DIRECTORY +
+                          BoardConfig::GLOBAL_DATA_FILE)) {
+    std::ofstream b_write(BoardConfig::BOARDS_DIRECTORY +
+                          BoardConfig::GLOBAL_DATA_FILE);
+    json default_data;
+    WriteBoard(BoardConfig::BOARDS_DIRECTORY, default_data);
+    std::cout << "Global data file not found, file has been created...\n";
+  }
+}
+
+bool Board::CheckFileExistence(std::string targetFile) {
+  std::ifstream b_read(targetFile);
 
   if (b_read.is_open()) {
     b_read.close();
@@ -185,18 +211,16 @@ void Board::WriteBoard(std::string targetFile, json jsonInformation) {
 }
 
 json Board::ReadFromJson(std::string targetFile) {
-  std::ifstream b_save(targetFile);
+  std::ifstream b_read(targetFile);
 
-  if (!b_save.is_open()) {
+  if (!b_read.is_open()) {
     throw std::invalid_argument(BoardConfig::ERR_FILE_CREATE);
   }
 
   json retrieveBoard;
-  b_save >> retrieveBoard;
+  b_read >> retrieveBoard;
 
-  b_save.close();
+  b_read.close();
 
   return retrieveBoard;
 }
-
-void Board::Update() {}
