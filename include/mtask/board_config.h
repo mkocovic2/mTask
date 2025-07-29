@@ -31,7 +31,7 @@ public:
 };
 
 inline const std::string BoardConfig::BOARDS_DIRECTORY = "boards/";
-inline const std::string BoardConfig::GLOBAL_DATA_FILE = "data.json";
+inline const std::string BoardConfig::GLOBAL_DATA_FILE = "boards/data.json";
 
 // Command Strings
 inline const std::string BoardConfig::CMD_CREATE = "create";

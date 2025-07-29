@@ -43,8 +43,7 @@ void Board::Create(std::string boardName) {
 
   json globalData;
 
-  std::ifstream d_read(BoardConfig::BOARDS_DIRECTORY +
-                       BoardConfig::GLOBAL_DATA_FILE);
+  std::ifstream d_read(BoardConfig::GLOBAL_DATA_FILE);
   if (!d_read.is_open()) {
     throw std::invalid_argument(BoardConfig::ERR_BOARD_SAVE);
   }
@@ -154,15 +153,12 @@ void Board::CheckDirectorySetup() {
     std::filesystem::create_directory("boards");
   }
 
-  if (!CheckFileExistence(BoardConfig::BOARDS_DIRECTORY +
-                          BoardConfig::GLOBAL_DATA_FILE)) {
-    std::ofstream b_write(BoardConfig::BOARDS_DIRECTORY +
-                          BoardConfig::GLOBAL_DATA_FILE);
+  if (!CheckFileExistence(BoardConfig::GLOBAL_DATA_FILE)) {
+    std::ofstream b_write(BoardConfig::GLOBAL_DATA_FILE);
     json default_data;
     default_data[BoardConfig::KEY_CURRENT_BOARD] = {
         {BoardConfig::KEY_DIRECTORY, ""}, {{BoardConfig::KEY_NAME, ""}}};
-    WriteBoard(BoardConfig::BOARDS_DIRECTORY + BoardConfig::GLOBAL_DATA_FILE,
-               default_data);
+    WriteBoard(BoardConfig::GLOBAL_DATA_FILE, default_data);
     std::cout << "Global data file not found, file has been created...\n";
   }
 }
