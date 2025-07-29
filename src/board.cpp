@@ -1,8 +1,5 @@
 #include "../include/mtask/board.h"
 #include "../include/mtask/board_config.h"
-#include <filesystem>
-#include <fstream>
-#include <iostream>
 
 Board::Board(std::string name) {
   this->entityName = name;
@@ -46,7 +43,8 @@ void Board::Create(std::string boardName) {
 
   json globalData;
 
-  std::ifstream d_read(BoardConfig::GLOBAL_DATA_FILE);
+  std::ifstream d_read(BoardConfig::BOARDS_DIRECTORY +
+                       BoardConfig::GLOBAL_DATA_FILE);
   if (!d_read.is_open()) {
     throw std::invalid_argument(BoardConfig::ERR_BOARD_SAVE);
   }
@@ -161,7 +159,10 @@ void Board::CheckDirectorySetup() {
     std::ofstream b_write(BoardConfig::BOARDS_DIRECTORY +
                           BoardConfig::GLOBAL_DATA_FILE);
     json default_data;
-    WriteBoard(BoardConfig::BOARDS_DIRECTORY, default_data);
+    default_data[BoardConfig::KEY_CURRENT_BOARD] = {
+        {BoardConfig::KEY_DIRECTORY, ""}, {{BoardConfig::KEY_NAME, ""}}};
+    WriteBoard(BoardConfig::BOARDS_DIRECTORY + BoardConfig::GLOBAL_DATA_FILE,
+               default_data);
     std::cout << "Global data file not found, file has been created...\n";
   }
 }
