@@ -156,8 +156,9 @@ void Board::CheckDirectorySetup() {
   if (!CheckFileExistence(BoardConfig::GLOBAL_DATA_FILE)) {
     std::ofstream b_write(BoardConfig::GLOBAL_DATA_FILE);
     json default_data;
-    default_data[BoardConfig::KEY_CURRENT_BOARD] = {
-        {BoardConfig::KEY_DIRECTORY, ""}, {{BoardConfig::KEY_NAME, ""}}};
+    default_data[BoardConfig::KEY_CURRENT_BOARD][BoardConfig::KEY_NAME] = "";
+    default_data[BoardConfig::KEY_CURRENT_BOARD][BoardConfig::KEY_DIRECTORY] =
+        "";
     WriteBoard(BoardConfig::GLOBAL_DATA_FILE, default_data);
     std::cout << "Global data file not found, file has been created...\n";
   }
